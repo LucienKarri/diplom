@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.transportsolution.transportsolution.TransportSolutionApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.959 s -- in com.transportsolution.transportsolution.TransportSolutionApplicationTests
