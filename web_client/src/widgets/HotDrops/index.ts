@@ -1,0 +1,1 @@
+export { HotDrops } from "./HotDropsPage";
