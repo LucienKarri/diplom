@@ -1,9 +1,9 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { EntityDrawer, PageLayout, Paper } from "../../../shared/components";
 import { Button, FormInstance } from "antd";
-import { FormContentPost } from "../../../entities/PostEntity/FormContent";
 import { useState } from "react";
 import { apiService } from "../../../shared/apiService";
+import { PostFormContent } from "../../../entities/PostEntity/PostFormContent";
 
 export const PostManagmentPage = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export const PostManagmentPage = () => {
           Добавить
         </Button>
         <EntityDrawer
-          formContent={<FormContentPost />}
+          formContent={<PostFormContent />}
           submitData={(value) => apiService.post("/posts", value)}
           open={open}
           onClose={handleClose}

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { EntityDrawer, PageLayout, Paper } from "../../../shared/components";
 import { Button, FormInstance } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { FormContent } from "../../../entities/VehicleEntity/FormContent";
 import { apiService } from "../../../shared/apiService";
+import { VehicleFormContent } from "../../../entities/VehicleEntity/VehicleFormContent";
 
 export const VehiclePage = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -31,7 +31,7 @@ export const VehiclePage = () => {
           Добавить
         </Button>
         <EntityDrawer
-          formContent={<FormContent />}
+          formContent={<VehicleFormContent />}
           submitData={(value) => apiService.post("/api/vehicle", value)}
           open={open}
           onClose={handleClose}

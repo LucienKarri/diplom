@@ -37,8 +37,6 @@ export const EntityDrawer: FC<IEntityDrawer> = ({
     try {
       setLoading(true);
 
-      console.log(value);
-
       await submitData(value);
 
       onClose();
