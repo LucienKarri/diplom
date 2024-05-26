@@ -1,14 +1,15 @@
 import { Col, Form, Input, InputNumber, Row, Select as AntdSelect } from "antd";
-import { Select } from "../../shared/components";
 import { apiService } from "../../shared/apiService";
+import { FormSelect } from "../../shared/components";
 
-export const FormContent = () => {
+export const VehicleFormContent = () => {
   const form = Form.useFormInstance();
+
   return (
     <div>
       <Row gutter={16}>
         <Col span={12}>
-          <Select
+          <FormSelect
             rules={[{ required: true, message: "Необходимо заполнить поле" }]}
             label={"Бренд"}
             name={"brand"}
@@ -18,7 +19,7 @@ export const FormContent = () => {
           />
         </Col>
         <Col span={12}>
-          <Select
+          <FormSelect
             rField="brand"
             rSub
             label={"Модель"}

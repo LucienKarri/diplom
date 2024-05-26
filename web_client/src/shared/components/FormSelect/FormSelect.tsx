@@ -13,7 +13,7 @@ interface ISelect {
   rSub?: boolean;
 }
 
-export const Select: FC<ISelect> = ({
+export const FormSelect: FC<ISelect> = ({
   fetchData,
   name,
   label,

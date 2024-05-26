@@ -1,8 +1,8 @@
 import { Button, Form, FormInstance, FormProps, Input } from "antd";
 import { FormButtonsGroup } from "./LoginForm.styled";
 import { FC, useCallback, useState } from "react";
-import { apiService } from "../../apiService";
-import { useUser } from "../../hooks";
+import { useUser } from "../../../../hooks";
+import { apiService } from "../../../../apiService";
 
 export interface ILoginFormData {
   login?: string;

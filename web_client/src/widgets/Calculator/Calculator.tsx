@@ -49,8 +49,6 @@ export const Calculator: FC = () => {
     []
   );
 
-  console.log("values", values);
-
   return (
     <Flex gap={8} style={{ padding: "0 16px" }}>
       <Flex vertical gap={8} style={{ padding: "0 16px" }} flex={1}>

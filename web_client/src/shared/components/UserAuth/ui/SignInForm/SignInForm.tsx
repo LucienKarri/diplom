@@ -1,7 +1,7 @@
 import { Button, Form, FormInstance, FormProps, Input } from "antd";
 import { FC, useCallback, useState } from "react";
 import { FormButtonsGroup } from "./SignInForm.styled";
-import { apiService } from "../../apiService";
+import { apiService } from "../../../../apiService";
 
 export interface ISignInFormData {
   username?: string;

@@ -24,7 +24,7 @@ const formItemLayoutWithOutLabel = {
   },
 };
 
-export const FormContentPost = () => {
+export const PostFormContent = () => {
   const form = Form.useFormInstance();
   return (
     <div>

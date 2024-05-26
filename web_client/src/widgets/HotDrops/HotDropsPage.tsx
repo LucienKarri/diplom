@@ -13,7 +13,6 @@ export const HotDrops = () => {
       setLoading(true);
       const response = await apiService.get<any[]>("/api/vehicle");
 
-      console.log("da", response.data);
       setVehicle(response.data);
     } catch (error) {
       console.error("fetch news > ", error);
