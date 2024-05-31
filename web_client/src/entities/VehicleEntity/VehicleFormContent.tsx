@@ -1,4 +1,4 @@
-import { Col, Form, Input, InputNumber, Row, Select as AntdSelect } from "antd";
+import { Col, Form, Input, InputNumber, Row } from "antd";
 import { apiService } from "../../shared/apiService";
 import { FormSelect } from "../../shared/components";
 
@@ -115,48 +115,28 @@ export const VehicleFormContent = () => {
       </Row>
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item
+          <FormSelect
+            rules={[{ required: true, message: "Необходимо заполнить поле" }]}
             label={"Тип топлива"}
             name={"fuelType"}
-            rules={[{ required: true, message: "Необходимо заполнить поле" }]}
-          >
-            <AntdSelect
-              options={[
-                {
-                  value: "gasoline",
-                  label: "Бензин",
-                },
-                {
-                  value: "diesel",
-                  label: "Дизельное топливо",
-                },
-              ]}
-            />
-          </Form.Item>
+            extractLabel={(item) => item.name}
+            extractValue={(item) => item.code}
+            fetchData={() => {
+              return apiService.get("/dictionaries/fuel");
+            }}
+          />
         </Col>
         <Col span={12}>
-          <Form.Item
+          <FormSelect
+            rules={[{ required: true, message: "Необходимо заполнить поле" }]}
             label={"Тип трансмиссии"}
             name={"transmission"}
-            rules={[{ required: true, message: "Необходимо заполнить поле" }]}
-          >
-            <AntdSelect
-              options={[
-                {
-                  value: "mt",
-                  label: "МКПП",
-                },
-                {
-                  value: "amt",
-                  label: "РКПП",
-                },
-                {
-                  value: "at",
-                  label: "АКПП",
-                },
-              ]}
-            />
-          </Form.Item>
+            extractLabel={(item) => item.name}
+            extractValue={(item) => item.code}
+            fetchData={() => {
+              return apiService.get("/dictionaries/transmissions");
+            }}
+          />
         </Col>
       </Row>
       <Row gutter={16}>

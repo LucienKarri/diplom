@@ -42,7 +42,7 @@ export const UserAuth = () => {
 
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
-      setUser({ isAuth: false });
+      setUser({ isAuth: false, userInfo: undefined });
     } catch (error) {
       console.error("logout error > ", error);
     }

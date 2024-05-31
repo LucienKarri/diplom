@@ -1,14 +1,14 @@
-import { Button, Form, FormInstance, FormProps, Input } from "antd";
+import { Button, Col, Form, FormInstance, FormProps, Input, Row } from "antd";
 import { FC, useCallback, useState } from "react";
 import { FormButtonsGroup } from "./SignInForm.styled";
 import { apiService } from "../../../../apiService";
 
 export interface ISignInFormData {
-  username?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
+  password: string;
+  email: string;
+  fullName: string;
+  companyName: string;
+  phoneNumber: string;
 }
 
 interface IFormProps {
@@ -23,7 +23,24 @@ export const SignInForm: FC<IFormProps> = ({ form, onCancel }) => {
     async (value: ISignInFormData) => {
       try {
         setLoading(true);
-        await apiService.post("/users", value);
+
+        const nameParts = value.fullName
+          .replace(/ {2,}/g, " ")
+          .trim()
+          .split(" ");
+
+        const body = {
+          firstName: nameParts[1],
+          lastName: nameParts[0],
+          middleName: nameParts[2],
+          companyName: value.companyName,
+          phoneNumber: value.phoneNumber,
+          email: value.email,
+          password: value.password,
+        };
+
+        await apiService.post("/users", body);
+        // await apiService.post("/application", body);
 
         onCancel();
       } catch (error) {
@@ -38,39 +55,45 @@ export const SignInForm: FC<IFormProps> = ({ form, onCancel }) => {
   return (
     <Form form={form} onFinish={onSubmit} layout="vertical">
       <Form.Item
-        label={"Имя"}
-        name={"firstName"}
-        rules={[{ required: true, message: "Необходимо заполнить поле" }]}
-      >
-        <Input />
-      </Form.Item>{" "}
-      <Form.Item
-        label={"Фамилия"}
-        name={"flastName"}
+        label={"Название компании"}
+        name={"companyName"}
         rules={[{ required: true, message: "Необходимо заполнить поле" }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={"Имя пользователя"}
-        name={"username"}
+        label={"ФИО"}
+        name={"fullName"}
         rules={[{ required: true, message: "Необходимо заполнить поле" }]}
       >
         <Input />
       </Form.Item>
-      <Form.Item
-        label={"Email"}
-        name={"email"}
-        rules={[
-          { required: true, message: "Необходимо заполнить поле" },
-          {
-            type: "email",
-            message: "Недействительный адрес электронной почты",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+      <Row gutter={16}>
+        <Col span={12}>
+          <Form.Item
+            label={"Email"}
+            name={"email"}
+            rules={[
+              { required: true, message: "Необходимо заполнить поле" },
+              {
+                type: "email",
+                message: "Недействительный адрес электронной почты",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            label={"Телефон"}
+            name={"phoneNumber"}
+            rules={[{ required: true, message: "Необходимо заполнить поле" }]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
       <Form.Item
         label={"Пароль"}
         name={"password"}

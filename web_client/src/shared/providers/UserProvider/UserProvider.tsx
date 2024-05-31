@@ -7,18 +7,38 @@ import {
   useState,
 } from "react";
 import { BASE_URL } from "../../apiService";
+import { jwtDecode } from "jwt-decode";
+
+export interface IUserInfo {
+  id: string;
+  lastName: string;
+  firstName: string;
+  middleName: string;
+  phoneNumber: string;
+  email: string;
+  companyName: string;
+}
+
+interface IUser {
+  userInfo?: IUserInfo;
+  isAuth: boolean;
+  roles?: string;
+}
 
 export const UserContext = createContext<{
-  user: { isAuth: boolean };
-  setUser: React.Dispatch<
-    React.SetStateAction<{
-      isAuth: boolean;
-    }>
-  >;
-} | null>(null);
+  user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
+}>({
+  user: {
+    isAuth: false,
+  },
+  setUser: () => {},
+});
 
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<{ isAuth: boolean }>({ isAuth: false });
+  const [user, setUser] = useState<IUser>({
+    isAuth: false,
+  });
 
   const checkAuthentication = async () => {
     try {
@@ -33,11 +53,20 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
 
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("refresh_token", response.data.refresh_token);
-      setUser({ isAuth: true });
+
+      const decodedToken = jwtDecode(response.data.access_token);
+      const roles = decodedToken.realm_access.roles.filter((item) =>
+        item.startsWith("ROLE_")
+      );
+
+      console.log("1", roles);
+      setUser((prev) => {
+        return { ...prev, isAuth: true, roles };
+      });
     } catch (error) {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
-      setUser({ isAuth: false });
+      setUser({ isAuth: false, userInfo: undefined });
     }
   };
 
@@ -46,6 +75,8 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
       checkAuthentication();
     }
   }, []);
+
+  console.log("user", user);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

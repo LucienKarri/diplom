@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.transportsolution.transportsolution.model.SignUpModel;
+import com.transportsolution.transportsolution.model.UserModel;
 import com.transportsolution.transportsolution.service.KeycloakUserService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-@Slf4j
 public class KeycloakUserController {
 
     private final KeycloakUserService keycloakUserService;
@@ -28,8 +27,7 @@ public class KeycloakUserController {
     }
 
     @GetMapping
-    public UserRepresentation getUser(Principal principal) {
-        log.info("JOPAHUI" + principal);
+    public UserModel getUser(Principal principal) {
         return keycloakUserService.getUserById(principal.getName());
     }
 

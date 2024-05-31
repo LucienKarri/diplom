@@ -3,6 +3,8 @@ import { FormButtonsGroup } from "./LoginForm.styled";
 import { FC, useCallback, useState } from "react";
 import { useUser } from "../../../../hooks";
 import { apiService } from "../../../../apiService";
+import { IUserInfo } from "../../../../providers/UserProvider/UserProvider";
+import { jwtDecode } from "jwt-decode";
 
 export interface ILoginFormData {
   login?: string;
@@ -27,7 +29,16 @@ export const LoginForm: FC<IFormProps> = ({ form, onCancel }) => {
 
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
-        setUser({ isAuth: true });
+
+        const { data } = await apiService.get<IUserInfo>("/users");
+
+        const decodedToken = jwtDecode(response.data.access_token);
+        const roles = decodedToken.realm_access.roles.filter((item) =>
+          item.startsWith("ROLE_")
+        );
+
+        setUser({ isAuth: true, userInfo: data, roles });
+
         onCancel();
       } catch (error) {
         console.error("fetch error >", error);

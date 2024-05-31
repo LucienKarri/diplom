@@ -1,13 +1,15 @@
 package com.transportsolution.transportsolution.service;
 
-import org.keycloak.representations.idm.UserRepresentation;
 import com.transportsolution.transportsolution.model.SignUpModel;
+import com.transportsolution.transportsolution.model.UserModel;
 
 
 public interface KeycloakUserService {
     SignUpModel createUser(SignUpModel model);
 
-    UserRepresentation getUserById(String userId);
+    UserModel getUserById(String userId);
+
+    UserModel getUserByEmail(String email);
 
     void deleteUserById(String userId);
 

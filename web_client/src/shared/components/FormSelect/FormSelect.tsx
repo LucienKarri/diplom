@@ -11,6 +11,8 @@ interface ISelect {
   rules?: Rule[];
   rField?: string;
   rSub?: boolean;
+  extractLabel?: (item) => string;
+  extractValue?: (item) => string;
 }
 
 export const FormSelect: FC<ISelect> = ({
@@ -20,6 +22,8 @@ export const FormSelect: FC<ISelect> = ({
   rules,
   rField,
   rSub,
+  extractLabel,
+  extractValue,
 }) => {
   const [opts, setOpts] = useState<DefaultOptionType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,16 +39,15 @@ export const FormSelect: FC<ISelect> = ({
 
       setOpts(
         response.data.map(
-          (item: { name: string; id: string | number }) =>
+          (item) =>
             ({
-              label: item.name,
-              value: item.id,
+              label: extractLabel?.(item) || item.name,
+              value: extractValue?.(item) || item.id,
             } as DefaultOptionType)
         )
       );
     } catch (error) {
       setOpts([]);
-      console.error("jopa");
     } finally {
       setLoading(false);
     }
