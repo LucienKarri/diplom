@@ -9,4 +9,6 @@ public interface AttachmentService {
 
     AttachmentEntity getAttachment(String fileId) throws Exception;
 
+    void deleteAttachment(String fileId);
+
 }

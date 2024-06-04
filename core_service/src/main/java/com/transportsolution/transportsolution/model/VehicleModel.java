@@ -6,8 +6,8 @@ import lombok.Data;
 public class VehicleModel {
 
     private Integer id;
-    private Long brand;
-    private Integer model;
+    private Long brandEntity;
+    private Integer modelEntity;
     private int year;
     private int liftingCapacity;
     private int length;
@@ -16,7 +16,9 @@ public class VehicleModel {
     private int capacity;
     private int enginePower;
     private int torque;
-    private String fuelType;
-    private String transmission;
+    private Long fuelEntity;
+    private Long transmissionEntity;
     private String description;
+    private String attachment;
+    private int price;
 }

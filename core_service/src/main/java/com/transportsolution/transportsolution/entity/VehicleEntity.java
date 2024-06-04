@@ -1,5 +1,6 @@
 package com.transportsolution.transportsolution.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,19 @@ public class VehicleEntity {
     @ManyToOne
     @JoinColumn(name = "model_id")
     private ModelEntity modelEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "fuel_id")
+    private FuelEntity fuelEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "transmission_id")
+    private TransmissionEntity transmissionEntity;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "attachment_id", nullable = true)
+    private AttachmentEntity attachment;
+
     private int year;
     private int liftingCapacity;
     private int length;
@@ -37,7 +51,8 @@ public class VehicleEntity {
     private int capacity;
     private int enginePower;
     private int torque;
-    private String fuelType;
-    private String transmission;
+    private int price;
+
+    @Column(nullable = true)
     private String description;
 }

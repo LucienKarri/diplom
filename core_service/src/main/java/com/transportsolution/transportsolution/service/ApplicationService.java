@@ -2,9 +2,10 @@ package com.transportsolution.transportsolution.service;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import org.keycloak.representations.idm.UserRepresentation;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import com.transportsolution.transportsolution.entity.ApplicationEntity;
+import com.transportsolution.transportsolution.model.ApplicationModel;
 import com.transportsolution.transportsolution.model.SignUpModel;
 import com.transportsolution.transportsolution.model.UserModel;
 import com.transportsolution.transportsolution.repository.ApplicationRepository;
@@ -48,5 +49,36 @@ public class ApplicationService {
             log.info("JOPAHUI: " + e.getMessage());
             throw e;
         }
+    }
+
+    public List<ApplicationModel> getApplications(String id) throws Exception {
+        if (id != null) {
+            log.info("ID: " + id);
+
+            ApplicationEntity application = applicationRepository.findById(id)
+                    .orElseThrow(() -> new Exception("Application not found - " + id));
+
+            log.info("APPLICATION: " + application);
+            ApplicationModel model = new ApplicationModel();
+
+            model.setId(application.getId());
+            model.setStatus(application.getStatus());
+            model.setCreateBy(keycloakUserService.getUserById(application.getCreateBy()));
+            model.setCreatedDate(application.getCreatedDate());
+            model.setLastUpdatedDate(application.getLastUpdatedDate());
+
+            return List.of(model);
+        }
+        return applicationRepository.findAll().stream().map(application -> {
+            ApplicationModel model = new ApplicationModel();
+
+            model.setId(application.getId());
+            model.setStatus(application.getStatus());
+            model.setCreatedDate(application.getCreatedDate());
+            model.setLastUpdatedDate(application.getLastUpdatedDate());
+            model.setCreateBy(keycloakUserService.getUserById(application.getCreateBy()));
+
+            return model;
+        }).toList();
     }
 }

@@ -1,34 +1,30 @@
-import { Select as AntdSelect, Form } from "antd";
-import { Rule } from "antd/es/form";
+import { Select as AntdSelect } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { AxiosResponse } from "axios";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface ISelect {
   fetchData: () => Promise<AxiosResponse>;
-  name: string;
-  label: string;
-  rules?: Rule[];
-  rField?: string;
-  rSub?: boolean;
-  extractLabel?: (item) => string;
-  extractValue?: (item) => string;
+  status?: boolean;
+  defaultOption?: DefaultOptionType;
+  subField?: string;
+  labelRender?: (option) => React.ReactNode;
+  optionRender?: (option) => React.ReactNode;
 }
 
 export const FormSelect: FC<ISelect> = ({
   fetchData,
-  name,
-  label,
-  rules,
-  rField,
-  rSub,
-  extractLabel,
-  extractValue,
+  status,
+  defaultOption,
+  subField,
+  labelRender,
+  optionRender,
+  ...props
 }) => {
+  const { setValue } = useFormContext();
   const [opts, setOpts] = useState<DefaultOptionType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const form = Form.useFormInstance();
-  const rValue = Form.useWatch(rField, form);
 
   const fetchOptions = async () => {
     try {
@@ -36,13 +32,13 @@ export const FormSelect: FC<ISelect> = ({
       setOpts([]);
 
       const response = await fetchData();
-
       setOpts(
         response.data.map(
           (item) =>
             ({
-              label: extractLabel?.(item) || item.name,
-              value: extractValue?.(item) || item.id,
+              ...item,
+              label: item.name,
+              value: item.id,
             } as DefaultOptionType)
         )
       );
@@ -59,20 +55,36 @@ export const FormSelect: FC<ISelect> = ({
     }
   };
 
-  useEffect(() => {
-    if (rField && rSub) {
-      setOpts([]);
-      form.setFieldValue(name, undefined);
-    }
-  }, [form, name, rField, rSub, rValue]);
+  const options = opts.length ? opts : defaultOption ? [defaultOption] : [];
 
   return (
-    <Form.Item label={label} name={name} rules={rules}>
-      <AntdSelect
-        options={opts}
-        loading={loading}
-        onDropdownVisibleChange={handleFetchOnOpen}
-      />
-    </Form.Item>
+    <AntdSelect
+      loading={loading}
+      onDropdownVisibleChange={handleFetchOnOpen}
+      allowClear
+      options={options}
+      style={{ width: "100%" }}
+      status={status ? "error" : undefined}
+      {...props}
+      onChange={(v) => {
+        if (subField) {
+          setValue(subField, undefined);
+        }
+        props.onChange(v);
+      }}
+      value={props.value}
+      labelRender={
+        labelRender
+          ? ({ value }) =>
+              labelRender?.(options.find((item) => item.value === value))
+          : undefined
+      }
+      optionRender={
+        optionRender
+          ? ({ value }) =>
+              optionRender?.(options.find((item) => item.value === value))
+          : undefined
+      }
+    />
   );
 };

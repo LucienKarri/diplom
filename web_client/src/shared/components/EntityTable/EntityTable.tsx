@@ -7,12 +7,16 @@ interface IEntityTable<T> {
   columns: ColumnsType;
   fetchData?: () => Promise<AxiosResponse>;
   mockData?: T[];
+  onRowClick?: (value) => void;
+  tData?: (data) => any;
 }
 
 export const EntityTable = <T,>({
   columns,
   fetchData,
   mockData,
+  onRowClick,
+  tData,
 }: IEntityTable<T>) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -23,7 +27,11 @@ export const EntityTable = <T,>({
         setLoading(true);
         const response = await fetchData();
 
-        setData(response.data);
+        if (tData) {
+          setData(response.data.map((item) => tData(item)));
+        } else {
+          setData(response.data);
+        }
       } catch (error) {
         console.error("get table data error >", error);
         setData([]);
@@ -45,6 +53,7 @@ export const EntityTable = <T,>({
       pagination={false}
       scroll={{ x: "max-content" }}
       size="small"
+      onRow={(record) => onRowClick?.(record)}
     />
   );
 };

@@ -40,7 +40,6 @@ export const SignInForm: FC<IFormProps> = ({ form, onCancel }) => {
         };
 
         await apiService.post("/users", body);
-        // await apiService.post("/application", body);
 
         onCancel();
       } catch (error) {

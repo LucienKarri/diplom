@@ -452,109 +452,26 @@
   "webAuthnPolicyPasswordlessAcceptableAaguids" : [ ],
   "webAuthnPolicyPasswordlessExtraOrigins" : [ ],
   "users" : [ {
-    "id" : "0e8939d8-a7f6-4632-9b84-be45f8258f41",
-    "username" : "10@example.com",
-    "firstName" : "Колбасень",
-    "lastName" : "Колбасков",
-    "email" : "10@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Сосикович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Сосисоны" ]
-    },
-    "createdTimestamp" : 1717072548213,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "9451fe11-c8b6-4be2-8158-f408ee7bf258",
-      "type" : "password",
-      "createdDate" : 1717072548426,
-      "secretData" : "{\"value\":\"0gBiNI4ihItwB/SRBqumKGb7t8js9cOZZJLD9jmX0rJOQlYYeQWOqqU2tVZKvYRo2ZI3DJjtw/uklJVrh/yoBQ==\",\"salt\":\"9QB0DFEoLoJ52hI0ubWbzw==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "b73c5b79-e475-4fc7-908f-92e06ca4c27e",
-    "username" : "11@example.com",
-    "firstName" : "порошок",
-    "lastName" : "Порошков",
-    "email" : "11@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Порашкович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Порошок" ]
-    },
-    "createdTimestamp" : 1717072650218,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "5bdad22d-6346-4041-90ba-39742094d533",
-      "type" : "password",
-      "createdDate" : 1717072650442,
-      "secretData" : "{\"value\":\"JwAoyYgpXNUVSojdrMgIr4fSpa7Cm7Y8NWO6fOXdetLZkDs6u/VfhX9ACvA2r16NWr9uNCZ44fCuvFrJwI7NnQ==\",\"salt\":\"Zdf+o2Qzu0HJjRfLb03UPg==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "b9ff8dc2-c286-4ba7-86ff-e177038d9898",
-    "username" : "1@example.ru",
-    "firstName" : "Петр",
+    "id" : "c19e9b50-f13e-4786-ba9d-c666c6c60504",
+    "username" : "apetrov@example.com",
+    "firstName" : "Александр",
     "lastName" : "Петров",
-    "email" : "1@example.ru",
+    "email" : "apetrov@example.com",
     "emailVerified" : true,
     "attributes" : {
-      "middleName" : [ "Петрович" ],
+      "middleName" : [ "Семенович" ],
       "phoneNumber" : [ "89876543210" ],
       "companyName" : [ "ОАО Булочки" ]
     },
-    "createdTimestamp" : 1716978461753,
+    "createdTimestamp" : 1717233694754,
     "enabled" : true,
     "totp" : false,
     "credentials" : [ {
-      "id" : "ea231474-2cc3-4973-ba0d-780b96c1482a",
+      "id" : "0da14100-5fb2-4e82-8948-351a4c024cec",
       "type" : "password",
-      "createdDate" : 1716978461966,
-      "secretData" : "{\"value\":\"5ypF61BYEdI4FDo/FqPOp8naumh5EvBAk2AMJyw50h9JxkaYcwGF+Su0T/vlYusX/cXyEadkqfNKCALmHyb1MQ==\",\"salt\":\"rHOOJN5a376nlBi5kabHmQ==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "clientRoles" : {
-      "transport_solution" : [ "USER" ]
-    },
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "c89ae4dc-f344-4b0f-8cb3-f3f5c951dcd9",
-    "username" : "2@example.com",
-    "firstName" : "Глазок",
-    "lastName" : "Глазков",
-    "email" : "2@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Глазкович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Глазочки" ]
-    },
-    "createdTimestamp" : 1716982307518,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "19e05034-8f98-4e5b-99bb-ae36bb724938",
-      "type" : "password",
-      "createdDate" : 1716982307738,
-      "secretData" : "{\"value\":\"zj5qR9Rlg+anBwmLBk5W4TPyFI4XPziEUrv1+FPq5uYdMXDAha9A6NBmD3dgga9fxZu+S2HbxaEBk5i4V/+NYQ==\",\"salt\":\"Bw8vxt7n86H2xhN14eP8HA==\",\"additionalParameters\":{}}",
+      "userLabel" : "My password",
+      "createdDate" : 1717233715589,
+      "secretData" : "{\"value\":\"/0cqeBWo0qTuQIYk5qs9HDuF2BI/W8+SYKKBmOOSTgXeg07XBrtQ+crzkDJ1gkQoDTAKbnNBqZJBWpXVRSzWTw==\",\"salt\":\"UXfBSg/g7/3QPbudv2Td2Q==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
@@ -563,194 +480,32 @@
     "notBefore" : 0,
     "groups" : [ "/USERS" ]
   }, {
-    "id" : "5d7e7aed-98df-4e1e-84c7-51f244793f21",
-    "username" : "3@example.com",
-    "firstName" : "Сосиска",
-    "lastName" : "Сосискова",
-    "email" : "3@example.com",
+    "id" : "8358315d-85ea-40e9-ba7b-490f2faf43fb",
+    "username" : "nachalnik@example.com",
+    "firstName" : "Владимир",
+    "lastName" : "Главный",
+    "email" : "nachalnik@example.com",
     "emailVerified" : true,
     "attributes" : {
-      "middleName" : [ "Сосисковна" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Залупки" ]
+      "middleName" : [ "Владимирович" ],
+      "phoneNumber" : [ "88888888888" ]
     },
-    "createdTimestamp" : 1716984365495,
+    "createdTimestamp" : 1717233800640,
     "enabled" : true,
     "totp" : false,
     "credentials" : [ {
-      "id" : "05704d08-0fe5-4e1e-9f3b-85a4725a4066",
+      "id" : "92514a35-8dad-4013-89f2-2af885fed852",
       "type" : "password",
-      "createdDate" : 1716984365712,
-      "secretData" : "{\"value\":\"lTW3i5GGc7KR6Yh3E37PSaxSi6/YzuGHedMLNLzuut3RRr405VlP5tQxFTlLyxer9/0074DzxikZPcWRmbwZtA==\",\"salt\":\"bnG1NueW2gc9qXuLalmUyg==\",\"additionalParameters\":{}}",
+      "userLabel" : "My password",
+      "createdDate" : 1717233819855,
+      "secretData" : "{\"value\":\"ZEdvnrYCT5J5z97IZJ+uPHlLEC50+gkewfpIq0jxSGHSbWXUt8LXC/Kz8qyJzgPm11ePWIu/0/VogDJgjFRTnA==\",\"salt\":\"1eDUqCagiC40Y1+xebNGrA==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-transport_solution" ],
     "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "ab8b7b2f-e9eb-42b5-8d29-ffbd5ec7d1d0",
-    "username" : "4@example.com",
-    "firstName" : "Сосиска",
-    "lastName" : "Сосискова",
-    "email" : "4@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Сосисковна" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Залупки" ]
-    },
-    "createdTimestamp" : 1716984397812,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "bed8e3e1-a944-4845-a43b-69cfc8ac9dd0",
-      "type" : "password",
-      "createdDate" : 1716984398029,
-      "secretData" : "{\"value\":\"IKcd6x8CGWLBd5ea5Rayw8lHB35dgjfnRH7E8EqpByhn1nmRx43Wc+kPx+0alMokZ2FKEcVZB928bEcnhsipdw==\",\"salt\":\"DkD/W5DQGLo2P54+8+TpvA==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "5345b748-f207-41c8-a8d6-93b222216add",
-    "username" : "5@example.com",
-    "firstName" : "Сосиска",
-    "lastName" : "Сосискова",
-    "email" : "5@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Сосисковна" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Залупки" ]
-    },
-    "createdTimestamp" : 1716984467840,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "1654366e-bee7-4519-9acd-d901f38c7e32",
-      "type" : "password",
-      "createdDate" : 1716984468064,
-      "secretData" : "{\"value\":\"nwsANWeXvKy3CoZyDL2VZQ3Cv4e3i9opuQzgLYooqCVbCmx8mPox/REnrifikFBsWMOmEU3q3MJawGkBUWwVxQ==\",\"salt\":\"SYAJkvB9ftO7xaCDcZDAcA==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "30696fdf-a258-427c-ae14-5cbcce98ea3e",
-    "username" : "6@example.com",
-    "firstName" : "Гармон",
-    "lastName" : "Гармонов",
-    "email" : "6@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Гармонович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ООО Гармоны" ]
-    },
-    "createdTimestamp" : 1717068379613,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "2455a999-01ba-40b5-99f0-d8d9ff6c87e8",
-      "type" : "password",
-      "createdDate" : 1717068379906,
-      "secretData" : "{\"value\":\"Md+u5rczrUtgioCo/R8g2NkpHhG3tfveO3NuOOFNL0ThBNIaipfXn6QpIVNOouvqVIiK8lrNx3kScfj7dzGEMg==\",\"salt\":\"cIWMtw139jlqyL3E9xDq6A==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "8cae11ff-7bf9-49b4-9123-8687955b5a46",
-    "username" : "7@example.com",
-    "firstName" : "Заточка",
-    "lastName" : "Заточкин",
-    "email" : "7@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Заточкович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ОАО Заточки" ]
-    },
-    "createdTimestamp" : 1717071582317,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "5876613c-5fbf-4e7b-8111-b9c53d2c90a8",
-      "type" : "password",
-      "createdDate" : 1717071582528,
-      "secretData" : "{\"value\":\"+F44hd1+nPErVCLb3i56koQsHx5Tq2AQfT8dDs+l84whnozgiTAEQi0G9PqEWv5tSxX6W7lgUwLkGrFnMzGH2g==\",\"salt\":\"E2IK3Xut6hww9+ioXXG0YQ==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "d03ee746-71b5-47b0-a76e-6d16d3931c26",
-    "username" : "8@example.com",
-    "firstName" : "Ебао",
-    "lastName" : "Ебаов",
-    "email" : "8@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Убаович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "ПАО Ебао" ]
-    },
-    "createdTimestamp" : 1717072220304,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "996325b8-473a-428e-adec-c9fadc453a6d",
-      "type" : "password",
-      "createdDate" : 1717072220531,
-      "secretData" : "{\"value\":\"mD83qExWczPVLnFmTC1VJOtImrVBor+t4InNiVSMxtEN8a7hlir/5l2H/K9ouwGNq6Ms3dXDByhc2zjhwRXyrQ==\",\"salt\":\"6QpVXcuP+xnhqEYAQqrixw==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
-  }, {
-    "id" : "ade4b496-35b7-4293-aae8-aae76277dc6f",
-    "username" : "9@example.com",
-    "firstName" : "Жопа",
-    "lastName" : "Жопастов",
-    "email" : "9@example.com",
-    "emailVerified" : true,
-    "attributes" : {
-      "middleName" : [ "Жопович" ],
-      "phoneNumber" : [ "89876543210" ],
-      "companyName" : [ "АО Жопасты" ]
-    },
-    "createdTimestamp" : 1717072282045,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "b7aee890-807e-4bf1-ac4b-d327e00328f3",
-      "type" : "password",
-      "createdDate" : 1717072282260,
-      "secretData" : "{\"value\":\"7E05VQmeTmv6NzXAr/3sdvpyJkzBU7D5i+ylWOyRKwPrejMgB5sIjuCCFB8Jy5j5lNHaChqFTm5fs8Qn32px5w==\",\"salt\":\"Wq652Ak/UFtNLQ8+EDUsvA==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-transport_solution" ],
-    "notBefore" : 0,
-    "groups" : [ "/USERS" ]
+    "groups" : [ "/ADMINS", "/USERS" ]
   }, {
     "id" : "f4101697-ee84-4b9f-bb8f-b03809811e53",
     "username" : "service-account-admin-cli",

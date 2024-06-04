@@ -6,5 +6,5 @@ import com.transportsolution.transportsolution.entity.FuelEntity;
 
 @Repository
 public interface FuelRepository extends JpaRepository<FuelEntity, Long> {
-
+    FuelEntity findByCode(String code);
 }

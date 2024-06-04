@@ -29,10 +29,10 @@ public class VehicleController {
 
 
     @GetMapping
-    public List<VehicleEntity> getVehicle(
-            @RequestParam(value = "id", required = false) Integer id) {
+    public List<VehicleEntity> getVehicle(@RequestParam(value = "id", required = false) Integer id)
+            throws Exception {
         if (id != null) {
-            return vehicleService.getVehicleById(id);
+            return List.of(vehicleService.getVehicleById(id));
         } else {
             return vehicleService.getVehicle();
         }
@@ -40,7 +40,7 @@ public class VehicleController {
 
     @PutMapping
     public VehicleEntity updateVehicle(@RequestBody VehicleModel vehicle) throws Exception {
-        return vehicleService.updateVehicle(vehicle);
+        return vehicleService.createVehicle(vehicle);
     }
 
     @DeleteMapping

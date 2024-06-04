@@ -15,4 +15,13 @@ public class TransmissionService {
     public List<TransmissionEntity> getAllTransmissions() {
         return transmissionRepository.findAll();
     }
+
+    public TransmissionEntity getByType(String code) {
+        return transmissionRepository.findByCode(code);
+    }
+
+    public TransmissionEntity getById(Long id) throws Exception {
+        return transmissionRepository.findById(id)
+                .orElseThrow(() -> new Exception("Transmission not found - " + id));
+    }
 }

@@ -16,9 +16,11 @@ interface IEntityDrawer {
   formContent: ReactNode;
   submitData: (value) => Promise<any>;
   formProps?: FormProps;
-  setFormInstance: React.Dispatch<
-    React.SetStateAction<FormInstance | undefined>
-  >;
+  // setFormInstance: React.Dispatch<
+  //   React.SetStateAction<FormInstance | undefined>
+  // >;
+  mode: "create" | "edit";
+  formInstance?: FormInstance;
 }
 
 export const EntityDrawer: FC<IEntityDrawer> = ({
@@ -27,10 +29,12 @@ export const EntityDrawer: FC<IEntityDrawer> = ({
   formContent,
   submitData,
   formProps,
-
-  setFormInstance,
+  // setFormInstance,
+  mode,
+  formInstance,
 }) => {
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
+  // const form = Form.useFormInstance();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit: FormProps["onFinish"] = async (value) => {
@@ -47,16 +51,31 @@ export const EntityDrawer: FC<IEntityDrawer> = ({
     }
   };
 
-  useEffect(() => {
-    if (form) {
-      setFormInstance(form);
-    }
-  }, [form, setFormInstance]);
+  // useEffect(() => {
+  //   if (form) {
+  //     setFormInstance(form);
+  //   }
+  // }, [form, setFormInstance]);
+
+  // useEffect(() => {
+  //   if (form) {
+  //     form.resetFields();
+  //   }
+  // }, [form, formProps?.initialValues]);
 
   return (
-    <Drawer open={open} onClose={onClose} title={"Шторка"} size="large">
+    <Drawer
+      open={open}
+      onClose={onClose}
+      title={
+        mode === "create"
+          ? "Добавление транспортного средства"
+          : "Редактирование данных"
+      }
+      size="large"
+    >
       <Form
-        form={form}
+        form={formInstance}
         onFinish={handleSubmit}
         layout="vertical"
         style={{ height: "100%" }}
@@ -68,7 +87,7 @@ export const EntityDrawer: FC<IEntityDrawer> = ({
             <Space>
               <Button onClick={onClose}>Отмена</Button>
               <Button type="primary" htmlType="submit" loading={loading}>
-                Жмяк
+                {mode === "create" ? "Добавить" : "Сохранить"}
               </Button>
             </Space>
             <Button

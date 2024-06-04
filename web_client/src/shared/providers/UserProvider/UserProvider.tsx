@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { BASE_URL } from "../../apiService";
+import { BASE_URL, apiService } from "../../apiService";
 import { jwtDecode } from "jwt-decode";
 
 export interface IUserInfo {
@@ -54,15 +54,14 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("refresh_token", response.data.refresh_token);
 
+      const { data } = await apiService.get<IUserInfo>("/users");
+
       const decodedToken = jwtDecode(response.data.access_token);
       const roles = decodedToken.realm_access.roles.filter((item) =>
         item.startsWith("ROLE_")
       );
 
-      console.log("1", roles);
-      setUser((prev) => {
-        return { ...prev, isAuth: true, roles };
-      });
+      setUser({ isAuth: true, userInfo: data, roles });
     } catch (error) {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
@@ -75,8 +74,6 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
       checkAuthentication();
     }
   }, []);
-
-  console.log("user", user);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

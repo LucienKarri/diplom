@@ -15,4 +15,13 @@ public class FuelService {
     public List<FuelEntity> getAllFuel() {
         return fuelRepository.findAll();
     }
+
+    public FuelEntity getById(Long id) throws Exception {
+        return fuelRepository.findById(id)
+                .orElseThrow(() -> new Exception("Fuel not found - " + id));
+    }
+
+    public FuelEntity getByType(String code) {
+        return fuelRepository.findByCode(code);
+    }
 }

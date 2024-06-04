@@ -7,4 +7,5 @@ import com.transportsolution.transportsolution.entity.TransmissionEntity;
 @Repository
 public interface TransmissionRepository extends JpaRepository<TransmissionEntity, Long> {
 
+    TransmissionEntity findByCode(String code);
 }

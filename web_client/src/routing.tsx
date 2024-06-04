@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage, Layout, ProfilePage } from "./pages";
 import {
   ClientsPage,
@@ -26,7 +26,6 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            loader: () => redirect("/profile/vehicle"),
           },
           {
             path: "/profile/vehicle",
