@@ -1,4 +1,5 @@
 import { IUserInfo } from "../../shared/providers/UserProvider/UserProvider";
+import { IFile, IVehicleEntity } from "../VehicleEntity/types";
 
 interface IStatus {
   id: number;
@@ -17,6 +18,15 @@ export interface IRequestEntityResponse {
   id: string;
   createdDate: string;
   lastUpdatedDate: string | null;
-  status: IStatus;
-  createBy: IUserInfo;
+  status: IStatus | number;
+  createBy: IUserInfo | string;
+
+  vehicle: IVehicleEntity | number;
+  amountOfCredit?: number;
+  creditTerm: number;
+  paymentDay: number;
+  monthlyPayment?: number;
+  advancePayment: number;
+  attachment?: IFile | string;
+  companyAdress?: string;
 }

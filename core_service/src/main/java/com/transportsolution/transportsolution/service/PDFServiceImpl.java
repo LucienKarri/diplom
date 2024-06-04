@@ -64,8 +64,8 @@ public class PDFServiceImpl implements PDFService {
                 document.add(new Paragraph("Арендатор: " + model.getCreateBy().getLastName() + " "
                                 + model.getCreateBy().getFirstName() + " "
                                 + model.getCreateBy().getMiddleName() + "\n" + "Компания: "
-                                + model.getCreateBy().getCompanyName() + "\n"
-                                + "Адрес: ${companyAdress}\n" + "Телефон: "
+                                + model.getCreateBy().getCompanyName() + "\n" + "Адрес: "
+                                + model.getCompanyAdress() + "\n" + "Телефон: "
                                 + model.getCreateBy().getPhoneNumber() + "\n" + "Email: "
                                 + model.getCreateBy().getEmail() + "\n"));
 
@@ -77,8 +77,8 @@ public class PDFServiceImpl implements PDFService {
                                 + vehicleEntity.getFuelEntity().getName() + "\n"
                                 + "Мощность двигателя: " + vehicleEntity.getEnginePower() + "\n"
                                 + "Трансмиссия: " + vehicleEntity.getTransmissionEntity().getName()
-                                + "\n" + "Габариты: " + vehicleEntity.getLength() + "X"
-                                + vehicleEntity.getWidth() + "X" + vehicleEntity.getHeight()
+                                + "\n" + "Габариты: " + vehicleEntity.getLength() + "x"
+                                + vehicleEntity.getWidth() + "x" + vehicleEntity.getHeight()
                                 + "\n"));
 
 
@@ -141,7 +141,7 @@ public class PDFServiceImpl implements PDFService {
                 table.addCell("Компания арендатора");
                 table.addCell(model.getCreateBy().getCompanyName());
                 table.addCell("Адрес арендатора");
-                table.addCell("sddasdeqweqwe213123ada");
+                table.addCell(model.getCompanyAdress());
                 table.addCell("Телефон арендатора");
                 table.addCell(model.getCreateBy().getPhoneNumber());
                 table.addCell("Email арендатора");
@@ -161,7 +161,7 @@ public class PDFServiceImpl implements PDFService {
                 table.addCell("Трансмиссия ТС");
                 table.addCell(vehicleEntity.getTransmissionEntity().getName());
                 table.addCell("Габариты ТС (Д х Ш х В)");
-                table.addCell(vehicleEntity.getLength() + "X" + vehicleEntity.getWidth() + "X"
+                table.addCell(vehicleEntity.getLength() + "x" + vehicleEntity.getWidth() + "x"
                                 + vehicleEntity.getHeight());
                 table.addCell("Срок аренды");
                 table.addCell(String.valueOf(model.getCreditTerm()));

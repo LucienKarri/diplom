@@ -41,4 +41,31 @@ public class ApplicationEntity {
 
     private String createBy;
 
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id", nullable = true)
+    private VehicleEntity vehicle;
+
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "attachment_id", nullable = true)
+    private AttachmentEntity attachment;
+
+    @Column(nullable = true)
+    private Integer amountOfCredit;
+
+    @Column(nullable = true)
+    private Integer creditTerm;
+
+    @Column(nullable = true)
+    private Integer paymentDay;
+
+    @Column(nullable = true)
+    private Integer advancePayment;
+
+    @Column(nullable = true)
+    private Integer monthlyPayment;
+
+    @Column(nullable = true)
+    private String companyAdress;
+
 }

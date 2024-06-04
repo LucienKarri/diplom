@@ -1,11 +1,23 @@
-import { Button, Divider, Flex, InputNumber, Space, Typography } from "antd";
+import {
+  Button,
+  Divider,
+  Flex,
+  Input,
+  InputNumber,
+  Space,
+  Typography,
+  Upload,
+  UploadFile,
+} from "antd";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { apiService } from "../../shared/apiService";
+import { BASE_URL, apiService } from "../../shared/apiService";
 import { IRequestEntityResponse } from "./types";
 import { IUserInfo } from "../../shared/providers/UserProvider/UserProvider";
 import { FormField, FormSelect } from "../../shared/components";
 import { IVehicleEntity } from "../VehicleEntity/types";
+import { DefaultOptionType } from "antd/es/select";
+import { FilePdfOutlined } from "@ant-design/icons";
 
 interface IRequestFormContent {
   handleClose: () => void;
@@ -16,38 +28,82 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
   handleClose,
   requestId,
 }) => {
-  const methods = useForm();
-  const { handleSubmit, control, getValues, watch, setValue } = methods;
+  const methods = useForm<IRequestEntityResponse>();
+  const { handleSubmit, control, getValues, watch, setValue, reset } = methods;
   const [data, setData] = useState<IRequestEntityResponse | undefined>();
   const [file, setFile] = useState<string | undefined>();
   const [body, setBody] = useState<{ createBy: IUserInfo }>();
   const [vehicle, setVehicle] = useState<IVehicleEntity>();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const vehicleId = watch("vehicle");
   const advancePayment = watch("advancePayment");
   const creditTerm = watch("creditTerm");
 
-  const onSubmit = (values) => {
-    console.log("submit", values);
+  const onSubmit = async (values: IRequestEntityResponse) => {
+    try {
+      const body = {
+        ...values,
+        id: data?.id,
+        createBy:
+          typeof data?.createBy === "object"
+            ? data?.createBy.id
+            : data?.createBy,
+        vehicle:
+          typeof values.vehicle === "object"
+            ? values.vehicle?.id
+            : values.vehicle,
+        status:
+          typeof values.status === "object" ? values.status?.id : values.status,
+        attachment: file,
+      } as IRequestEntityResponse;
+      await apiService.patch("/application", body);
+
+      handleClose();
+    } catch (error) {
+      console.error("JOPA:", error);
+    }
   };
 
   const fetchRequesEntity = useCallback(async () => {
     try {
-      const response = await apiService.get<IRequestEntityResponse[]>(
+      const { data } = await apiService.get<IRequestEntityResponse[]>(
         "/application",
         {
           params: { id: requestId },
         }
       );
-      console.log("data", response.data);
-      setData(response.data[0]);
+      setData(data[0]);
+
+      setFileList(
+        typeof data[0].attachment === "object" && data[0].attachment
+          ? [
+              {
+                name: data[0]?.attachment?.fileName,
+                uid: data[0]?.attachment?.id,
+                status: "done",
+                url: `${BASE_URL}/download/${data[0]?.attachment?.id}`,
+              },
+            ]
+          : []
+      );
+      reset({
+        ...data[0],
+        status: data[0].status.id,
+        vehicle: data[0]?.vehicle?.id || undefined,
+      });
     } catch (error) {
       console.error("fetch error >", error);
     }
-  }, [requestId]);
+  }, [requestId, reset]);
 
   useEffect(() => {
     if (requestId) {
+      setBody(undefined);
+      setData(undefined);
+      setFile(undefined);
+      setVehicle(undefined);
+      setFileList([]);
       fetchRequesEntity();
     }
   }, [fetchRequesEntity, requestId]);
@@ -69,9 +125,18 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
       paymentDay: values.paymentDay,
       monthlyPayment: values.monthlyPayment,
       advancePayment: values.advancePayment,
+      companyAdress: values.companyAdress,
     };
     apiService.post("/upload/pdf", currentBody).then((res) => {
-      setFile(res.data.id);
+      setFileList([
+        {
+          name: res.data.fileName,
+          uid: res.data.id,
+          url: `${BASE_URL}/download/${res.data.id}`,
+          status: "done",
+        },
+      ]);
+      setValue("attachment", res.data.id);
     });
   };
 
@@ -135,6 +200,41 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
             <Divider orientation="left" style={{ margin: 0 }}>
               Общаяя информация
             </Divider>
+            <Flex gap={16}>
+              <Controller
+                name={"status"}
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <FormField label="Статус">
+                      <FormSelect
+                        {...field}
+                        fetchData={() => {
+                          return apiService.get("/dictionaries/statuses");
+                        }}
+                        defaultOption={
+                          {
+                            label: data?.status.name,
+                            value: data?.status.id,
+                          } as DefaultOptionType
+                        }
+                      />
+                    </FormField>
+                  );
+                }}
+              />
+              <Controller
+                name={"companyAdress"}
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <FormField label="Адрес компании" required>
+                      <Input {...field} />
+                    </FormField>
+                  );
+                }}
+              />
+            </Flex>
             <Divider orientation="left" style={{ margin: 0 }}>
               Предмет договора
             </Divider>
@@ -150,13 +250,20 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                         fetchData={() => {
                           return apiService.get("/api/vehicle");
                         }}
+                        defaultOption={
+                          {
+                            ...data?.vehicle,
+                            label: data?.vehicle?.id || undefined,
+                            value: data?.vehicle?.id || undefined,
+                          } as DefaultOptionType
+                        }
                         optionRender={(option) => {
                           return (
                             <div>
                               <Typography.Text>
                                 {[
-                                  option.brandEntity.name,
-                                  option.modelEntity.name,
+                                  option?.brandEntity?.name,
+                                  option?.modelEntity?.name,
                                 ].join(" ")}
                               </Typography.Text>
                             </div>
@@ -167,8 +274,8 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                             <div>
                               <Typography.Text>
                                 {[
-                                  option.brandEntity.name,
-                                  option.modelEntity.name,
+                                  option?.brandEntity?.name,
+                                  option?.modelEntity?.name,
                                 ].join(" ")}
                               </Typography.Text>
                             </div>
@@ -260,30 +367,26 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                 }}
               />
             </Flex>
+            <Divider orientation="left" style={{ margin: 0 }}>
+              Договор
+            </Divider>
+            {!!fileList.length && (
+              <Flex gap={16}>
+                <FormField>
+                  <Upload
+                    showUploadList={{ showRemoveIcon: false }}
+                    fileList={fileList}
+                    iconRender={() => <FilePdfOutlined />}
+                  ></Upload>
+                </FormField>
+              </Flex>
+            )}
             <Flex gap={16}>
-              <Button onClick={() => createPdf()}>Создать pdf</Button>
-              <Button
-                onClick={() =>
-                  apiService
-                    .get(`/download/${file}`, {
-                      responseType: "arraybuffer",
-                    })
-                    .then((res) => {
-                      const url = window.URL.createObjectURL(
-                        new Blob([res.data])
-                      );
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.setAttribute("download", "JOPAS.pdf");
-                      a.click();
-                    })
-                }
-              >
-                Скачать pdf
-              </Button>
-              {/* <Button type="primary" onClick={a}>
-                Рассчитать
-              </Button> */}
+              <FormField>
+                <Button onClick={() => createPdf()}>
+                  Сформировать договор
+                </Button>
+              </FormField>
             </Flex>
           </Flex>
           <Flex justify="space-between">

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.transportsolution.transportsolution.entity.ApplicationEntity;
 import com.transportsolution.transportsolution.model.ApplicationModel;
+import com.transportsolution.transportsolution.model.ApplicationUpdateModel;
 import com.transportsolution.transportsolution.model.SignUpModel;
 import com.transportsolution.transportsolution.model.UserModel;
 import com.transportsolution.transportsolution.repository.ApplicationRepository;
@@ -20,6 +21,8 @@ public class ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final KeycloakUserService keycloakUserService;
     private final StatusService statusService;
+    private final VehicleService vehicleService;
+    private final AttachmentService attachmentService;
 
     public ApplicationEntity createRequest(SignUpModel userData, Principal principal)
             throws Exception {
@@ -66,6 +69,14 @@ public class ApplicationService {
             model.setCreateBy(keycloakUserService.getUserById(application.getCreateBy()));
             model.setCreatedDate(application.getCreatedDate());
             model.setLastUpdatedDate(application.getLastUpdatedDate());
+            model.setAdvancePayment(application.getAdvancePayment());
+            model.setAmountOfCredit(application.getAmountOfCredit());
+            model.setCreditTerm(application.getCreditTerm());
+            model.setMonthlyPayment(application.getMonthlyPayment());
+            model.setPaymentDay(application.getPaymentDay());
+            model.setVehicle(application.getVehicle());
+            model.setAttachment(application.getAttachment());
+            model.setCompanyAdress(application.getCompanyAdress());
 
             return List.of(model);
         }
@@ -77,8 +88,55 @@ public class ApplicationService {
             model.setCreatedDate(application.getCreatedDate());
             model.setLastUpdatedDate(application.getLastUpdatedDate());
             model.setCreateBy(keycloakUserService.getUserById(application.getCreateBy()));
+            model.setAdvancePayment(application.getAdvancePayment());
+            model.setAmountOfCredit(application.getAmountOfCredit());
+            model.setCreditTerm(application.getCreditTerm());
+            model.setMonthlyPayment(application.getMonthlyPayment());
+            model.setPaymentDay(application.getPaymentDay());
+            model.setVehicle(application.getVehicle());
+            model.setAttachment(application.getAttachment());
+            model.setCompanyAdress(application.getCompanyAdress());
 
             return model;
         }).toList();
+    }
+
+    public ApplicationEntity updateApplication(ApplicationUpdateModel model) throws Exception {
+        log.info("JOJPDASJDAD: " + model);
+        ApplicationEntity entity = applicationRepository.findById(model.getId()).orElseThrow(
+                () -> new Exception("Application not found with Id: " + model.getId()));
+
+        if (model.getStatus() != null) {
+            entity.setStatus(statusService.getStatusById(model.getStatus()));
+        }
+        if (model.getAdvancePayment() != null) {
+            entity.setAdvancePayment(model.getAdvancePayment());
+        }
+        if (model.getAmountOfCredit() != null) {
+            entity.setAmountOfCredit(model.getAmountOfCredit());
+        }
+        if (model.getCreditTerm() != null) {
+            entity.setCreditTerm(model.getCreditTerm());
+        }
+        if (model.getMonthlyPayment() != null) {
+            entity.setMonthlyPayment(model.getMonthlyPayment());
+        }
+        if (model.getPaymentDay() != null) {
+            entity.setPaymentDay(model.getPaymentDay());
+        }
+        if (model.getVehicle() != null) {
+            entity.setVehicle(vehicleService.getVehicleById(model.getVehicle()));
+        }
+        if (model.getCreateBy() != null) {
+            entity.setCreateBy(model.getCreateBy());
+        }
+        if (model.getAttachment() != null) {
+            entity.setAttachment(attachmentService.getAttachment(model.getAttachment()));
+        }
+        if (model.getCompanyAdress() != null) {
+            entity.setCompanyAdress(model.getCompanyAdress());
+        }
+
+        return applicationRepository.save(entity);
     }
 }
