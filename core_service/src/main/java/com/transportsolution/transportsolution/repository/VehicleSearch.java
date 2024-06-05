@@ -71,6 +71,11 @@ public class VehicleSearch {
             predicates.add(transmissionPredicate);
         }
 
+        if (searchRequest.getId() != null) {
+            Predicate idPredicate = criteriaBuilder.equal(root.get("id"), searchRequest.getId());
+            predicates.add(idPredicate);
+        }
+
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
 
         TypedQuery<VehicleEntity> query = entityManager.createQuery(criteriaQuery);

@@ -3,7 +3,7 @@ import { Carousel, Typography } from "antd";
 export const CarouselBlock = () => {
   return (
     <div>
-      <Carousel autoplay autoplaySpeed={10000}>
+      <Carousel autoplay autoplaySpeed={5000}>
         <div>
           <div
             style={{
@@ -87,7 +87,7 @@ export const CarouselBlock = () => {
                   Двойная выгода на технику в наличии
                 </Typography.Title>
                 <Typography.Title level={3}>
-                  Приобритайте тягочи и самосвалы в лизинг на уникальных
+                  Приобретайте тягачи и самосвалы в лизинг на уникальных
                   условиях
                 </Typography.Title>
                 <ul>

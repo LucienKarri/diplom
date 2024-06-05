@@ -6,11 +6,33 @@ import { apiService } from "../../../shared/apiService";
 import { VEHICLE_ENTITY_COLUMNS } from "../../../entities/VehicleEntity/constants";
 import { VehicleFormContent } from "../../../entities/VehicleEntity/VehicleFormContent";
 import { IVehicle } from "../../../entities/VehicleEntity/types";
+import { FormProvider, useForm } from "react-hook-form";
+
+const defaultValues: IVehicle = {
+  brand: undefined,
+  capacity: undefined,
+  description: undefined,
+  enginePower: undefined,
+  fuel: undefined,
+  height: undefined,
+  id: undefined,
+  length: undefined,
+  liftingCapacity: undefined,
+  model: undefined,
+  torque: undefined,
+  transmission: undefined,
+  width: undefined,
+  year: undefined,
+};
 
 export const VehiclePage = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedRow, setSelectedRow] = useState<number | undefined>();
   const [mode, setMode] = useState<"create" | "edit">("create");
+
+  const methods = useForm<IVehicle>({
+    defaultValues: defaultValues,
+  });
 
   const handleCreate = () => {
     setOpen(true);
@@ -20,10 +42,10 @@ export const VehiclePage = () => {
   const handleClose = () => {
     setOpen(false);
     setSelectedRow(undefined);
+    methods.reset(defaultValues);
   };
 
   const handleRowClick = (record: IVehicle) => {
-    console.log(record);
     setOpen(true);
     setMode("edit");
     setSelectedRow(record?.id);
@@ -61,11 +83,13 @@ export const VehiclePage = () => {
           }
           size="large"
         >
-          <VehicleFormContent
-            handleClose={handleClose}
-            vehicleId={selectedRow}
-            mode={mode}
-          />
+          <FormProvider {...methods}>
+            <VehicleFormContent
+              handleClose={handleClose}
+              vehicleId={selectedRow}
+              mode={mode}
+            />
+          </FormProvider>
         </Drawer>
       </Paper>
     </PageLayout>

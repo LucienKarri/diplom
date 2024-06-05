@@ -3,7 +3,17 @@ import { DefaultOptionType } from "antd/es/select";
 import { AxiosResponse } from "axios";
 import { FC, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import styled from "styled-components";
 
+const StyledSelect = styled(AntdSelect)`
+  &:where(
+      .css-dev-only-do-not-override-1okl62o
+    ).ant-select-outlined.ant-select-disabled:not(.ant-select-customize-input)
+    .ant-select-selector {
+    color: inherit;
+    background: white;
+  }
+`;
 interface ISelect {
   fetchData: () => Promise<AxiosResponse>;
   status?: boolean;
@@ -11,6 +21,7 @@ interface ISelect {
   subField?: string;
   labelRender?: (option) => React.ReactNode;
   optionRender?: (option) => React.ReactNode;
+  disabled?: boolean;
 }
 
 export const FormSelect: FC<ISelect> = ({
@@ -20,6 +31,7 @@ export const FormSelect: FC<ISelect> = ({
   subField,
   labelRender,
   optionRender,
+  disabled,
   ...props
 }) => {
   const { setValue } = useFormContext();
@@ -58,12 +70,12 @@ export const FormSelect: FC<ISelect> = ({
   const options = opts.length ? opts : defaultOption ? [defaultOption] : [];
 
   return (
-    <AntdSelect
+    <StyledSelect
       loading={loading}
       onDropdownVisibleChange={handleFetchOnOpen}
       allowClear
       options={options}
-      style={{ width: "100%" }}
+      style={{ width: "100%", background: "white" }}
       status={status ? "error" : undefined}
       {...props}
       onChange={(v) => {
@@ -85,6 +97,7 @@ export const FormSelect: FC<ISelect> = ({
               optionRender?.(options.find((item) => item.value === value))
           : undefined
       }
+      disabled={disabled}
     />
   );
 };

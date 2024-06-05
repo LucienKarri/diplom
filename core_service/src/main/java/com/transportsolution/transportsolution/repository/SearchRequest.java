@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SearchRequest {
+    private Integer Id;
+
     private Integer brandId;
 
     private Integer minPrice;

@@ -54,7 +54,7 @@ public class ApplicationService {
         }
     }
 
-    public List<ApplicationModel> getApplications(String id) throws Exception {
+    public List<ApplicationModel> getApplications(String id, String createBy) throws Exception {
         if (id != null) {
             log.info("ID: " + id);
 
@@ -80,6 +80,29 @@ public class ApplicationService {
 
             return List.of(model);
         }
+
+        if (createBy != null) {
+            return applicationRepository.findByCreateBy(createBy).stream().map(application -> {
+                ApplicationModel model = new ApplicationModel();
+
+                model.setId(application.getId());
+                model.setStatus(application.getStatus());
+                model.setCreatedDate(application.getCreatedDate());
+                model.setLastUpdatedDate(application.getLastUpdatedDate());
+                model.setCreateBy(keycloakUserService.getUserById(application.getCreateBy()));
+                model.setAdvancePayment(application.getAdvancePayment());
+                model.setAmountOfCredit(application.getAmountOfCredit());
+                model.setCreditTerm(application.getCreditTerm());
+                model.setMonthlyPayment(application.getMonthlyPayment());
+                model.setPaymentDay(application.getPaymentDay());
+                model.setVehicle(application.getVehicle());
+                model.setAttachment(application.getAttachment());
+                model.setCompanyAdress(application.getCompanyAdress());
+
+                return model;
+            }).toList();
+        }
+
         return applicationRepository.findAll().stream().map(application -> {
             ApplicationModel model = new ApplicationModel();
 

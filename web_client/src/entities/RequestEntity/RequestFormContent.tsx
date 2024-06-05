@@ -15,9 +15,10 @@ import { BASE_URL, apiService } from "../../shared/apiService";
 import { IRequestEntityResponse } from "./types";
 import { IUserInfo } from "../../shared/providers/UserProvider/UserProvider";
 import { FormField, FormSelect } from "../../shared/components";
-import { IVehicleEntity } from "../VehicleEntity/types";
+import { IVehicle } from "../VehicleEntity/types";
 import { DefaultOptionType } from "antd/es/select";
 import { FilePdfOutlined } from "@ant-design/icons";
+import { useUser } from "../../shared/hooks";
 
 interface IRequestFormContent {
   handleClose: () => void;
@@ -31,10 +32,15 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
   const methods = useForm<IRequestEntityResponse>();
   const { handleSubmit, control, getValues, watch, setValue, reset } = methods;
   const [data, setData] = useState<IRequestEntityResponse | undefined>();
-  const [file, setFile] = useState<string | undefined>();
   const [body, setBody] = useState<{ createBy: IUserInfo }>();
-  const [vehicle, setVehicle] = useState<IVehicleEntity>();
+  const [vehicle, setVehicle] = useState<IVehicle>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const {
+    user: { roles },
+  } = useUser();
+
+  const isAllow = roles?.includes("ROLE_ADMIN");
 
   const vehicleId = watch("vehicle");
   const advancePayment = watch("advancePayment");
@@ -55,7 +61,6 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
             : values.vehicle,
         status:
           typeof values.status === "object" ? values.status?.id : values.status,
-        attachment: file,
       } as IRequestEntityResponse;
       await apiService.patch("/application", body);
 
@@ -101,7 +106,6 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
     if (requestId) {
       setBody(undefined);
       setData(undefined);
-      setFile(undefined);
       setVehicle(undefined);
       setFileList([]);
       fetchRequesEntity();
@@ -115,7 +119,6 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
   }, [data]);
 
   const createPdf = () => {
-    console.log(body);
     const values = getValues();
     const currentBody = {
       ...body,
@@ -218,6 +221,7 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                             value: data?.status.id,
                           } as DefaultOptionType
                         }
+                        disabled={!isAllow}
                       />
                     </FormField>
                   );
@@ -229,7 +233,7 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                 render={({ field }) => {
                   return (
                     <FormField label="Адрес компании" required>
-                      <Input {...field} />
+                      <Input {...field} readOnly={!isAllow} />
                     </FormField>
                   );
                 }}
@@ -247,6 +251,7 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                     <FormField label="Транспортное средство" required>
                       <FormSelect
                         {...field}
+                        disabled={!isAllow}
                         fetchData={() => {
                           return apiService.get("/api/vehicle");
                         }}
@@ -262,8 +267,8 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                             <div>
                               <Typography.Text>
                                 {[
-                                  option?.brandEntity?.name,
-                                  option?.modelEntity?.name,
+                                  option?.brand?.name,
+                                  option?.model?.name,
                                 ].join(" ")}
                               </Typography.Text>
                             </div>
@@ -274,8 +279,8 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                             <div>
                               <Typography.Text>
                                 {[
-                                  option?.brandEntity?.name,
-                                  option?.modelEntity?.name,
+                                  option?.brand?.name,
+                                  option?.model?.name,
                                 ].join(" ")}
                               </Typography.Text>
                             </div>
@@ -301,8 +306,8 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                         {...field}
                         style={{ width: "100%" }}
                         controls={false}
-                        readOnly
-                        variant="filled"
+                        disabled
+                        readOnly={!isAllow}
                       />
                     </FormField>
                   );
@@ -318,8 +323,8 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                         {...field}
                         style={{ width: "100%" }}
                         controls={false}
-                        readOnly
-                        variant="filled"
+                        disabled
+                        readOnly={!isAllow}
                       />
                     </FormField>
                   );
@@ -333,7 +338,11 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                 render={({ field }) => {
                   return (
                     <FormField label="Срок кредита" required>
-                      <InputNumber {...field} style={{ width: "100%" }} />
+                      <InputNumber
+                        {...field}
+                        style={{ width: "100%" }}
+                        readOnly={!isAllow}
+                      />
                     </FormField>
                   );
                 }}
@@ -344,7 +353,11 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                 render={({ field }) => {
                   return (
                     <FormField label="Аванс" required>
-                      <InputNumber {...field} style={{ width: "100%" }} />
+                      <InputNumber
+                        {...field}
+                        style={{ width: "100%" }}
+                        readOnly={!isAllow}
+                      />
                     </FormField>
                   );
                 }}
@@ -361,6 +374,7 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                         {...field}
                         style={{ width: "100%" }}
                         controls={false}
+                        readOnly={!isAllow}
                       />
                     </FormField>
                   );
@@ -381,20 +395,24 @@ export const RequestFormContent: FC<IRequestFormContent> = ({
                 </FormField>
               </Flex>
             )}
-            <Flex gap={16}>
-              <FormField>
-                <Button onClick={() => createPdf()}>
-                  Сформировать договор
-                </Button>
-              </FormField>
-            </Flex>
+            {isAllow && (
+              <Flex gap={16}>
+                <FormField>
+                  <Button onClick={() => createPdf()}>
+                    Сформировать договор
+                  </Button>
+                </FormField>
+              </Flex>
+            )}
           </Flex>
           <Flex justify="space-between">
             <Space>
               <Button onClick={handleClose}>Отмена</Button>
-              <Button type="primary" htmlType="submit">
-                Сохранить
-              </Button>
+              {isAllow && (
+                <Button type="primary" htmlType="submit">
+                  Сохранить
+                </Button>
+              )}
             </Space>
           </Flex>
         </Flex>

@@ -4,7 +4,7 @@ import { StyledFooter, StyledHeader, StyledLayout } from "./Layout.styled.ts";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { PhoneOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../shared/apiService/apiService.ts";
+import logo from "../../assets/logo.jpg";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -55,7 +55,7 @@ export const Layout = () => {
       <StyledHeader style={{ background: token.colorPrimaryBg }}>
         <Link to={"/"}>
           <Flex gap={8} align="center">
-            <img src="./src/assets/logo.jpg" height={62} />
+            <img src={logo} height={62} />
             <Typography.Title
               level={3}
               style={{

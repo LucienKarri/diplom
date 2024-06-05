@@ -44,6 +44,9 @@ public class VehicleController {
     // }
     @GetMapping
     public List<VehicleEntity> getVehicle(SearchRequest request) throws Exception {
+        if (request == null) {
+            return vehicleService.getVehicle();
+        }
         return vehicleService.getByBrandId(request);
     }
 

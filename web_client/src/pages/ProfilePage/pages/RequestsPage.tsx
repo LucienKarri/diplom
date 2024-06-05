@@ -8,10 +8,15 @@ import { IRequestEntityResponse } from "../../../entities/RequestEntity/types";
 import { Drawer } from "antd";
 import { useState } from "react";
 import { RequestFormContent } from "../../../entities/RequestEntity/RequestFormContent";
+import { useUser } from "../../../shared/hooks";
 
 export const RequestsPage = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedRow, setSelectedRow] = useState<number | undefined>();
+
+  const {
+    user: { roles, userInfo },
+  } = useUser();
 
   const handleClose = () => {
     setOpen(false);
@@ -44,7 +49,13 @@ export const RequestsPage = () => {
           }
           columns={REQUEST_ENTITY_COLUMNS}
           fetchData={() => {
-            return apiService.get<IRequestEntityResponse>("/application");
+            return apiService.get<IRequestEntityResponse>("/application", {
+              params: {
+                createBy: roles?.includes("ROLE_ADMIN")
+                  ? undefined
+                  : userInfo?.id,
+              },
+            });
           }}
           onRowClick={(record) => {
             return {
@@ -58,11 +69,6 @@ export const RequestsPage = () => {
           title={"Редактирование заявки"}
           size="large"
         >
-          {/* <VehicleFormContent
-            handleClose={handleClose}
-            vehicleId={selectedRow}
-            mode={mode}
-          /> */}
           <RequestFormContent
             handleClose={handleClose}
             requestId={selectedRow}

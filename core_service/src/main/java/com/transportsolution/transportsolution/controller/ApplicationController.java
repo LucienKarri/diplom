@@ -31,9 +31,9 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public List<ApplicationModel> getApplications(@RequestParam(required = false) String id)
-            throws Exception {
-        return applicationService.getApplications(id);
+    public List<ApplicationModel> getApplications(@RequestParam(required = false) String id,
+            @RequestParam(required = false) String createBy) throws Exception {
+        return applicationService.getApplications(id, createBy);
     }
 
     @PatchMapping
