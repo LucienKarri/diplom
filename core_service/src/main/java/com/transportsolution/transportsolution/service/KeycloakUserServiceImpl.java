@@ -13,6 +13,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import com.transportsolution.transportsolution.model.SignUpModel;
 import com.transportsolution.transportsolution.model.UserModel;
 import jakarta.ws.rs.core.Response;
@@ -37,7 +38,7 @@ public class KeycloakUserServiceImpl implements KeycloakUserService {
         user.setFirstName(model.firstName());
         user.setLastName(model.lastName());
         user.setEmail(model.email());
-        user.setEmailVerified(true);
+        user.setEmailVerified(false);
 
         CredentialRepresentation credentials = new CredentialRepresentation();
         credentials.setTemporary(false);
@@ -60,16 +61,16 @@ public class KeycloakUserServiceImpl implements KeycloakUserService {
         Response response = usersResource.create(user);
 
         if (Objects.equals((201), response.getStatus())) {
-            // List<UserRepresentation> representationList =
-            // usersResource.searchByEmail(model.email(), true);
-            // if (!CollectionUtils.isEmpty(representationList)) {
-            // UserRepresentation userRepresentation1 =
-            // representationList.stream()
-            // .filter(userRepresentation -> Objects.equals(false,
-            // userRepresentation.isEmailVerified()))
-            // .findFirst().orElse(null);
-            // sentEmailVerification(userRepresentation1.getId());
-            // }
+            List<UserRepresentation> representationList =
+                    usersResource.searchByEmail(model.email(), true);
+            if (!CollectionUtils.isEmpty(representationList)) {
+                UserRepresentation userRepresentation1 =
+                        representationList.stream()
+                                .filter(userRepresentation -> Objects.equals(false,
+                                        userRepresentation.isEmailVerified()))
+                                .findFirst().orElse(null);
+                sentEmailVerification(userRepresentation1.getId());
+            }
             return model;
         } else {
             String responseBody = response.readEntity(String.class);

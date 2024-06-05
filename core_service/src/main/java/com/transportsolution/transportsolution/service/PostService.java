@@ -35,11 +35,12 @@ public class PostService {
         return PostModel.toModel(postRepository.save(postEntity));
     }
 
-    public List<PostModel> getPosts(Long id) {
-        if (id == null) {
-            return postRepository.findAll().stream().map(PostModel::toModel)
-                    .collect(Collectors.toList());
-        }
-        return postRepository.findById(id).stream().map(PostModel::toModel).toList();
+    public List<PostEntity> getPosts(Long id) {
+        // if (id == null) {
+        return postRepository.findAll();
+        // return postRepository.findAll().stream().map(PostModel::toModel)
+        // .collect(Collectors.toList());
+        // }
+        // return postRepository.findById(id).stream().map(PostModel::toModel).toList();
     }
 }

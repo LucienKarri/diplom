@@ -17,6 +17,8 @@ export const StyledLayout = styled(Layout)`
   min-height: 100vh;
 `;
 
+export const StyledFooter = styled(Layout.Footer)``;
+
 export const ButtonsContainer = styled.div`
   display: flex;
   gap: 8px;

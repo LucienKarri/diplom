@@ -26,10 +26,10 @@ const itemsForAdmin: MenuItem[] = [
   //   key: "clients",
   //   label: <Link to={"/profile/clients"}>Клиенты</Link>,
   // },
-  // {
-  //   key: "posts",
-  //   label: <Link to={"/profile/posts"}>Управление постами</Link>,
-  // },
+  {
+    key: "posts",
+    label: <Link to={"/profile/posts"}>Управление постами</Link>,
+  },
 ];
 
 const itemsForUser: MenuItem[] = [

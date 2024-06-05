@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.transportsolution.transportsolution.entity.VehicleEntity;
 import com.transportsolution.transportsolution.model.VehicleModel;
+import com.transportsolution.transportsolution.repository.SearchRequest;
 import com.transportsolution.transportsolution.service.VehicleService;
 
 
@@ -28,14 +29,22 @@ public class VehicleController {
     }
 
 
+    // @GetMapping
+    // public List<VehicleEntity> getVehicle(@RequestParam(value = "id", required = false) Integer
+    // id,
+    // @RequestParam(value = "brandId", required = false) Integer brandId) throws Exception {
+    // if (id != null) {
+    // return List.of(vehicleService.getVehicleById(id));
+    // }
+
+    // if (brandId != null) {
+    // return vehicleService.getByBrandId(brandId);
+    // }
+    // return vehicleService.getVehicle();
+    // }
     @GetMapping
-    public List<VehicleEntity> getVehicle(@RequestParam(value = "id", required = false) Integer id)
-            throws Exception {
-        if (id != null) {
-            return List.of(vehicleService.getVehicleById(id));
-        } else {
-            return vehicleService.getVehicle();
-        }
+    public List<VehicleEntity> getVehicle(SearchRequest request) throws Exception {
+        return vehicleService.getByBrandId(request);
     }
 
     @PutMapping

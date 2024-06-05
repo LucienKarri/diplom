@@ -13,7 +13,7 @@ export interface IFile {
   fileType: string;
 }
 
-export interface IVehicleEntity {
+export interface IVehicle {
   id?: number;
   year?: number;
   liftingCapacity?: number;
@@ -23,10 +23,10 @@ export interface IVehicleEntity {
   capacity?: number;
   enginePower?: number;
   torque?: number;
-  brandEntity?: IDictionaryShort | number;
-  modelEntity?: IDictionaryShort | number;
-  fuelEntity?: IDictionary | number;
-  transmissionEntity?: IDictionary | number;
+  brand?: IDictionaryShort | number;
+  model?: IDictionaryShort | number;
+  fuel?: IDictionary | number;
+  transmission?: IDictionary | number;
   description?: string;
   attachment?: IFile | string;
   price?: number;

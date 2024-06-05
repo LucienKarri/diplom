@@ -70,16 +70,15 @@ public class PDFServiceImpl implements PDFService {
                                 + model.getCreateBy().getEmail() + "\n"));
 
                 document.add(new Paragraph("Транспортное средство:\n" + "Марка: "
-                                + vehicleEntity.getBrandEntity().getName() + "\n" + "Модель: "
-                                + vehicleEntity.getModelEntity().getName() + "\n" + "Год выпуска: "
+                                + vehicleEntity.getBrand().getName() + "\n" + "Модель: "
+                                + vehicleEntity.getModel().getName() + "\n" + "Год выпуска: "
                                 + vehicleEntity.getYear() + "\n" + "Грузоподъемность: "
                                 + vehicleEntity.getLiftingCapacity() + "\n" + "Тип топлива: "
-                                + vehicleEntity.getFuelEntity().getName() + "\n"
-                                + "Мощность двигателя: " + vehicleEntity.getEnginePower() + "\n"
-                                + "Трансмиссия: " + vehicleEntity.getTransmissionEntity().getName()
-                                + "\n" + "Габариты: " + vehicleEntity.getLength() + "x"
-                                + vehicleEntity.getWidth() + "x" + vehicleEntity.getHeight()
-                                + "\n"));
+                                + vehicleEntity.getFuel().getName() + "\n" + "Мощность двигателя: "
+                                + vehicleEntity.getEnginePower() + "\n" + "Трансмиссия: "
+                                + vehicleEntity.getTransmission().getName() + "\n" + "Габариты: "
+                                + vehicleEntity.getLength() + "x" + vehicleEntity.getWidth() + "x"
+                                + vehicleEntity.getHeight() + "\n"));
 
 
                 document.add(new Paragraph("1. Предмет договора \n"
@@ -147,19 +146,19 @@ public class PDFServiceImpl implements PDFService {
                 table.addCell("Email арендатора");
                 table.addCell(model.getCreateBy().getEmail());
                 table.addCell("Марка ТС");
-                table.addCell(vehicleEntity.getBrandEntity().getName());
+                table.addCell(vehicleEntity.getBrand().getName());
                 table.addCell("Модель ТС");
-                table.addCell(vehicleEntity.getModelEntity().getName());
+                table.addCell(vehicleEntity.getModel().getName());
                 table.addCell("Год выпуска ТС");
                 table.addCell(String.valueOf(vehicleEntity.getYear()));
                 table.addCell("Грузоподъемность ТС");
                 table.addCell(String.valueOf(vehicleEntity.getLiftingCapacity()));
                 table.addCell("Тип топлива ТС");
-                table.addCell(vehicleEntity.getFuelEntity().getName());
+                table.addCell(vehicleEntity.getFuel().getName());
                 table.addCell("Мощность двигателя ТС");
                 table.addCell(String.valueOf(vehicleEntity.getEnginePower()));
                 table.addCell("Трансмиссия ТС");
-                table.addCell(vehicleEntity.getTransmissionEntity().getName());
+                table.addCell(vehicleEntity.getTransmission().getName());
                 table.addCell("Габариты ТС (Д х Ш х В)");
                 table.addCell(vehicleEntity.getLength() + "x" + vehicleEntity.getWidth() + "x"
                                 + vehicleEntity.getHeight());

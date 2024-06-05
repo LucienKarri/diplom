@@ -50,6 +50,8 @@ export const SliderRow: FC<ISliderRow> = ({
           controls={false}
           formatter={formatter}
           parser={parser}
+          style={{ width: 200 }}
+          readOnly
         />
       </Flex>
       <Slider

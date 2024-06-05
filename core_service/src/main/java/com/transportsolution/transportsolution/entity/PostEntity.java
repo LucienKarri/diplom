@@ -25,6 +25,7 @@ public class PostEntity {
     private Long id;
 
     private String title;
+
     @Column(columnDefinition = "varchar(5000)")
     private List<String> paragraph;
 

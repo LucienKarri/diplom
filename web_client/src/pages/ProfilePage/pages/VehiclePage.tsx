@@ -5,7 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { apiService } from "../../../shared/apiService";
 import { VEHICLE_ENTITY_COLUMNS } from "../../../entities/VehicleEntity/constants";
 import { VehicleFormContent } from "../../../entities/VehicleEntity/VehicleFormContent";
-import { IVehicleEntity } from "../../../entities/VehicleEntity/types";
+import { IVehicle } from "../../../entities/VehicleEntity/types";
 
 export const VehiclePage = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -22,7 +22,8 @@ export const VehiclePage = () => {
     setSelectedRow(undefined);
   };
 
-  const handleRowClick = (record: IVehicleEntity) => {
+  const handleRowClick = (record: IVehicle) => {
+    console.log(record);
     setOpen(true);
     setMode("edit");
     setSelectedRow(record?.id);

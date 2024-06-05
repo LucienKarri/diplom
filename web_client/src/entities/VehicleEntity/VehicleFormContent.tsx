@@ -12,22 +12,22 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { FormField, FormSelect } from "../../shared/components";
 import { BASE_URL, apiService } from "../../shared/apiService";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
-import { IVehicleEntity } from "./types";
+import { IVehicle } from "./types";
 import { FC, useCallback, useEffect, useState } from "react";
 
-const defaultValues: IVehicleEntity = {
-  brandEntity: undefined,
+const defaultValues: IVehicle = {
+  brand: undefined,
   capacity: undefined,
   description: undefined,
   enginePower: undefined,
-  fuelEntity: undefined,
+  fuel: undefined,
   height: undefined,
   id: undefined,
   length: undefined,
   liftingCapacity: undefined,
-  modelEntity: undefined,
+  model: undefined,
   torque: undefined,
-  transmissionEntity: undefined,
+  transmission: undefined,
   width: undefined,
   year: undefined,
 };
@@ -43,21 +43,21 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
   mode,
   vehicleId,
 }) => {
-  const methods = useForm<IVehicleEntity>({
+  const methods = useForm<IVehicle>({
     defaultValues: defaultValues,
   });
   const { handleSubmit, control, watch, setValue, reset } = methods;
 
-  const [data, setData] = useState<IVehicleEntity>();
+  const [data, setData] = useState<IVehicle>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const brandValue = watch("brandEntity");
+  const brandValue = watch("brand");
 
   const onClose = () => {
     handleClose();
   };
 
-  const onSubmit = async (data: IVehicleEntity) => {
+  const onSubmit = async (data: IVehicle) => {
     try {
       if (mode === "create") {
         await apiService.post("/api/vehicle", data);
@@ -72,47 +72,39 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
   };
 
   const fetchCar = useCallback(async () => {
-    const res = await apiService.get<IVehicleEntity[]>("/api/vehicle", {
+    console.log("fetch: ", vehicleId);
+    const res = await apiService.get<IVehicle[]>("/api/vehicle", {
       params: { id: vehicleId },
     });
 
     const data = res.data[0];
 
-    const formValues: IVehicleEntity = {
+    const formValues: IVehicle = {
       id: data.id,
       attachment:
-        typeof data.attachment === "object"
-          ? data.attachment.id
-          : data.attachment,
-      brandEntity:
-        typeof data.brandEntity === "object"
-          ? data.brandEntity.id
-          : data.brandEntity,
+        typeof data.attachment === "object" && data.attachment
+          ? data.attachment?.id
+          : undefined,
+      brand: typeof data.brand === "object" ? data.brand.id : data.brand,
       capacity: data.capacity,
       description: data.description,
       enginePower: data.enginePower,
-      fuelEntity:
-        typeof data.fuelEntity === "object"
-          ? data.fuelEntity.id
-          : data.fuelEntity,
+      fuel: typeof data.fuel === "object" ? data.fuel.id : data.fuel,
       height: data.height,
       length: data.length,
       liftingCapacity: data.liftingCapacity,
       torque: data.torque,
       width: data.width,
       year: data.year,
-      modelEntity:
-        typeof data.modelEntity === "object"
-          ? data.modelEntity.id
-          : data.modelEntity,
-      transmissionEntity:
-        typeof data.transmissionEntity === "object"
-          ? data.transmissionEntity.id
-          : data.transmissionEntity,
+      model: typeof data.model === "object" ? data.model.id : data.model,
+      transmission:
+        typeof data.transmission === "object"
+          ? data.transmission.id
+          : data.transmission,
       price: data.price,
     };
     setFileList(
-      typeof data.attachment === "object"
+      typeof data.attachment === "object" && data.attachment
         ? [
             {
               name: data?.attachment?.fileName,
@@ -123,11 +115,13 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
           ]
         : []
     );
+    console.log("formList", formValues);
     setData(data);
     reset(formValues);
   }, [reset, vehicleId]);
 
   useEffect(() => {
+    console.log("test");
     if (mode === "create") {
       setData({});
       setFileList([]);
@@ -144,23 +138,23 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
           <Flex vertical gap={24}>
             <Flex gap={16}>
               <Controller
-                name="brandEntity"
+                name="brand"
                 control={control}
                 render={({ field }) => {
                   return (
                     <FormField label="Бренд" required>
                       <FormSelect
                         {...field}
-                        subField={"modelEntity"}
+                        subField={"model"}
                         defaultOption={{
                           label:
-                            typeof data?.brandEntity === "object"
-                              ? data?.brandEntity.name
+                            typeof data?.brand === "object"
+                              ? data?.brand.name
                               : "jopa",
                           value:
-                            typeof data?.brandEntity === "object"
-                              ? data?.brandEntity.id
-                              : data?.brandEntity,
+                            typeof data?.brand === "object"
+                              ? data?.brand.id
+                              : data?.brand,
                         }}
                         fetchData={() => {
                           return apiService.get("/dictionaries/brands");
@@ -171,7 +165,7 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
                 }}
               />
               <Controller
-                name="modelEntity"
+                name="model"
                 control={control}
                 render={({ field }) => {
                   return (
@@ -180,13 +174,13 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
                         {...field}
                         defaultOption={{
                           label:
-                            typeof data?.modelEntity === "object"
-                              ? data?.modelEntity.name
+                            typeof data?.model === "object"
+                              ? data?.model.name
                               : "jopa",
                           value:
-                            typeof data?.modelEntity === "object"
-                              ? data?.modelEntity.id
-                              : data?.modelEntity,
+                            typeof data?.model === "object"
+                              ? data?.model.id
+                              : data?.model,
                         }}
                         fetchData={() => {
                           return apiService.get("/dictionaries/models", {
@@ -329,7 +323,7 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
             </Flex>
             <Flex gap={16}>
               <Controller
-                name="fuelEntity"
+                name="fuel"
                 control={control}
                 render={({ field }) => {
                   return (
@@ -338,13 +332,13 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
                         {...field}
                         defaultOption={{
                           label:
-                            typeof data?.fuelEntity === "object"
-                              ? data?.fuelEntity.name
+                            typeof data?.fuel === "object"
+                              ? data?.fuel.name
                               : "jopa",
                           value:
-                            typeof data?.fuelEntity === "object"
-                              ? data?.fuelEntity.id
-                              : data?.fuelEntity,
+                            typeof data?.fuel === "object"
+                              ? data?.fuel.id
+                              : data?.fuel,
                         }}
                         fetchData={() => {
                           return apiService.get("/dictionaries/fuel");
@@ -355,7 +349,7 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
                 }}
               />
               <Controller
-                name="transmissionEntity"
+                name="transmission"
                 control={control}
                 render={({ field }) => {
                   return (
@@ -364,13 +358,13 @@ export const VehicleFormContent: FC<IVehicleFormContent> = ({
                         {...field}
                         defaultOption={{
                           label:
-                            typeof data?.transmissionEntity === "object"
-                              ? data?.transmissionEntity.name
+                            typeof data?.transmission === "object"
+                              ? data?.transmission.name
                               : "jopa",
                           value:
-                            typeof data?.transmissionEntity === "object"
-                              ? data?.transmissionEntity.id
-                              : data?.transmissionEntity,
+                            typeof data?.transmission === "object"
+                              ? data?.transmission.id
+                              : data?.transmission,
                         }}
                         fetchData={() => {
                           return apiService.get("/dictionaries/transmissions");

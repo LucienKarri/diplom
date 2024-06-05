@@ -1,11 +1,15 @@
 package com.transportsolution.transportsolution.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.transportsolution.transportsolution.entity.VehicleEntity;
+import com.transportsolution.transportsolution.model.ModelModel;
 import com.transportsolution.transportsolution.model.VehicleModel;
+import com.transportsolution.transportsolution.repository.SearchRequest;
 import com.transportsolution.transportsolution.repository.VehicleRepository;
+import com.transportsolution.transportsolution.repository.VehicleSearch;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +26,13 @@ public class VehicleService {
     private final TransmissionService transmissionService;
     private final AttachmentService attachmentService;
 
+    private final VehicleSearch vehicleSearch;
+
     public VehicleEntity createVehicle(VehicleModel vehicle) throws Exception {
         log.info("HUIPIZDA: " + vehicle);
         VehicleEntity entity = new VehicleEntity();
-        entity.setBrandEntity(brandService.getById(vehicle.getBrandEntity()));
-        entity.setModelEntity(modelService.getById(vehicle.getModelEntity()));
+        entity.setBrand(brandService.getById(vehicle.getBrand()));
+        entity.setModel(modelService.getById(vehicle.getModel()));
         entity.setLiftingCapacity(vehicle.getLiftingCapacity());
         entity.setCapacity(vehicle.getCapacity());
         entity.setEnginePower(vehicle.getEnginePower());
@@ -35,8 +41,8 @@ public class VehicleService {
         entity.setLength(vehicle.getLength());
         entity.setWidth(vehicle.getWidth());
         entity.setYear(vehicle.getYear());
-        entity.setFuelEntity(fuelService.getById(vehicle.getFuelEntity()));
-        entity.setTransmissionEntity(transmissionService.getById(vehicle.getTransmissionEntity()));
+        entity.setFuel(fuelService.getById(vehicle.getFuel()));
+        entity.setTransmission(transmissionService.getById(vehicle.getTransmission()));
         entity.setPrice(vehicle.getPrice());
 
         if (vehicle.getDescription() != null) {
@@ -51,20 +57,10 @@ public class VehicleService {
         return vehicleRepository.save(entity);
     }
 
-    // public VehicleEntity updateVehicle(VehicleModel vehicle) throws Exception {
-    // VehicleEntity entity = new VehicleEntity();
-
-    // return vehicleRepository
-    // .save(VehicleEntity.builder().brandEntity(brandService.getById(vehicle.getBrand()))
-    // .modelEntity(modelService.getById(vehicle.getModel()))
-    // .capacity(vehicle.getCapacity()).description(vehicle.getDescription())
-    // .enginePower(vehicle.getEnginePower())
-    // .fuelEntity(fuelService.getById(vehicle.getFuel()))
-    // .height(vehicle.getHeight()).length(vehicle.getLength())
-    // .liftingCapacity(vehicle.getLiftingCapacity()).torque(vehicle.getTorque())
-    // .transmissionEntity(transmissionService.getById(vehicle.getTransmission()))
-    // .year(vehicle.getYear()).id(vehicle.getId()).build());
-    // }
+    public List<VehicleEntity> getByBrandId(SearchRequest request) {
+        return vehicleSearch.findByDynamicFilter(request);
+        // return vehicleRepository.findByBrandId(id);
+    }
 
     public VehicleEntity getVehicleById(Integer id) throws Exception {
         return vehicleRepository.findById(id).orElseThrow(() -> new Exception("JOPPPPPAAAA"));

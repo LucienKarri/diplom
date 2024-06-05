@@ -452,6 +452,33 @@
   "webAuthnPolicyPasswordlessAcceptableAaguids" : [ ],
   "webAuthnPolicyPasswordlessExtraOrigins" : [ ],
   "users" : [ {
+    "id" : "ec0f40d0-03f3-4c97-ad4d-e22b10879b2f",
+    "username" : "111she@mail.ru",
+    "firstName" : "гонка",
+    "lastName" : "пушка",
+    "email" : "111she@mail.ru",
+    "emailVerified" : false,
+    "attributes" : {
+      "middleName" : [ "ебасоска" ],
+      "phoneNumber" : [ "123414412" ],
+      "companyName" : [ "тапки" ]
+    },
+    "createdTimestamp" : 1717598090780,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "0f2f2eb2-7524-48dc-a0e5-a72271025a5e",
+      "type" : "password",
+      "createdDate" : 1717598090995,
+      "secretData" : "{\"value\":\"2Fu9zMHAKtWukk63kOhWUpr9mGG4HWPB6F/uJ0vsZ+cWJuLCIUku7FiOX51Wk+OzaAvKMNDYis5xXxpnyhBzqA==\",\"salt\":\"Yz3/Zas4nncnW5teb1aMYQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "default-roles-transport_solution" ],
+    "notBefore" : 0,
+    "groups" : [ "/USERS" ]
+  }, {
     "id" : "c19e9b50-f13e-4786-ba9d-c666c6c60504",
     "username" : "apetrov@example.com",
     "firstName" : "Александр",
@@ -488,7 +515,8 @@
     "emailVerified" : true,
     "attributes" : {
       "middleName" : [ "Владимирович" ],
-      "phoneNumber" : [ "88888888888" ]
+      "phoneNumber" : [ "88888888888" ],
+      "companyName" : [ "Транспортные решения" ]
     },
     "createdTimestamp" : 1717233800640,
     "enabled" : true,
@@ -497,8 +525,8 @@
       "id" : "92514a35-8dad-4013-89f2-2af885fed852",
       "type" : "password",
       "userLabel" : "My password",
-      "createdDate" : 1717233819855,
-      "secretData" : "{\"value\":\"ZEdvnrYCT5J5z97IZJ+uPHlLEC50+gkewfpIq0jxSGHSbWXUt8LXC/Kz8qyJzgPm11ePWIu/0/VogDJgjFRTnA==\",\"salt\":\"1eDUqCagiC40Y1+xebNGrA==\",\"additionalParameters\":{}}",
+      "createdDate" : 1717234110622,
+      "secretData" : "{\"value\":\"tkrdZwZTFRSO5KZuM2oJUHZKOUD2U7OPqJ5ZzhR9taVTl3yVFw2rj7BtD9VNyOaqH9csI1aTC/JMCVGnJ4JSrw==\",\"salt\":\"Qaw9P3AzIubXbd/AE9b1Iw==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
@@ -506,6 +534,33 @@
     "realmRoles" : [ "default-roles-transport_solution" ],
     "notBefore" : 0,
     "groups" : [ "/ADMINS", "/USERS" ]
+  }, {
+    "id" : "eedf62fb-ef1b-4624-be6d-6ff805aaa69f",
+    "username" : "pvasilev@example.com",
+    "firstName" : "Петр",
+    "lastName" : "Васильев",
+    "email" : "pvasilev@example.com",
+    "emailVerified" : true,
+    "attributes" : {
+      "middleName" : [ "Вагитович" ],
+      "phoneNumber" : [ "89876543210" ],
+      "companyName" : [ "ООО Жучки" ]
+    },
+    "createdTimestamp" : 1717413981294,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "e70a29aa-dada-45b6-aca3-224d9d07f960",
+      "type" : "password",
+      "createdDate" : 1717413981566,
+      "secretData" : "{\"value\":\"KBpEwPSXYaMQ5bK6blTjEJj0tv1iWJKZ+1plpxzZz9rxEnOEYjuuxcJzyMyzXy73YOrmJi7hWVO5AvqIaOCW5A==\",\"salt\":\"li5e9dKXxPKJwTPvnlkQsA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-transport_solution" ],
+    "notBefore" : 0,
+    "groups" : [ "/USERS" ]
   }, {
     "id" : "f4101697-ee84-4b9f-bb8f-b03809811e53",
     "username" : "service-account-admin-cli",
@@ -540,6 +595,33 @@
     },
     "notBefore" : 0,
     "groups" : [ ]
+  }, {
+    "id" : "6f6c65bb-de64-4915-96a6-cb0ea73e6ee1",
+    "username" : "swetterok@gmail.com",
+    "firstName" : "Владлен",
+    "lastName" : "Гончарный",
+    "email" : "swetterok@gmail.com",
+    "emailVerified" : false,
+    "attributes" : {
+      "middleName" : [ "Жукович" ],
+      "phoneNumber" : [ "89876543210" ],
+      "companyName" : [ "ОАО Ромашка" ]
+    },
+    "createdTimestamp" : 1717597481279,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "46ff4ea6-590b-441a-a7ce-af1fe0372f90",
+      "type" : "password",
+      "createdDate" : 1717597481501,
+      "secretData" : "{\"value\":\"BuPaCWYacgCPdS0wnISPDLKKmgDIvNOMpFh4tCqvDGoQZL26RL9qN72jDIaoxdmXihFPLfT4INyNLY3IZEXfEw==\",\"salt\":\"jrmgktb5IlHFeN2ueYdYGg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ "VERIFY_PROFILE" ],
+    "realmRoles" : [ "default-roles-transport_solution" ],
+    "notBefore" : 0,
+    "groups" : [ "/USERS" ]
   } ],
   "scopeMappings" : [ {
     "clientScope" : "offline_access",
@@ -1386,7 +1468,20 @@
     "xXSSProtection" : "1; mode=block",
     "strictTransportSecurity" : "max-age=31536000; includeSubDomains"
   },
-  "smtpServer" : { },
+  "smtpServer" : {
+    "replyToDisplayName" : "",
+    "starttls" : "false",
+    "auth" : "true",
+    "envelopeFrom" : "",
+    "ssl" : "true",
+    "password" : "xTYx9KnRMRCudZucJBfb",
+    "port" : "465",
+    "host" : "smtp.mail.ru",
+    "replyTo" : "",
+    "from" : "111she@mail.ru",
+    "fromDisplayName" : "Крутец",
+    "user" : "111she@mail.ru"
+  },
   "eventsEnabled" : false,
   "eventsListeners" : [ "jboss-logging" ],
   "enabledEventTypes" : [ ],
@@ -2012,8 +2107,8 @@
     "alias" : "VERIFY_EMAIL",
     "name" : "Verify Email",
     "providerId" : "VERIFY_EMAIL",
-    "enabled" : false,
-    "defaultAction" : false,
+    "enabled" : true,
+    "defaultAction" : true,
     "priority" : 50,
     "config" : { }
   }, {

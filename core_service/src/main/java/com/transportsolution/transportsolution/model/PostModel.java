@@ -15,9 +15,9 @@ public class PostModel {
         PostModel model = new PostModel();
         model.setTitle(postEntity.getTitle());
         model.setParagraph(postEntity.getParagraph());
-        if (postEntity.getAttachment() != null) {
-            model.setAttachmentId(postEntity.getAttachment().getId());
-        }
+        // if (postEntity.getAttachment() != null) {
+        // model.setAttachmentId(postEntity.getAttachment().getId());
+        // }
         return model;
     }
 }

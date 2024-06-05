@@ -9,12 +9,12 @@ const dictionaryCell = (value: IDictionaryShort) => {
 export const VEHICLE_ENTITY_COLUMNS: ColumnsType<IVehicleEntity> = [
   {
     title: "Бренд",
-    dataIndex: "brandEntity",
+    dataIndex: "brand",
     render: dictionaryCell,
   },
   {
     title: "Модель",
-    dataIndex: "modelEntity",
+    dataIndex: "model",
     render: dictionaryCell,
   },
   {
@@ -51,12 +51,12 @@ export const VEHICLE_ENTITY_COLUMNS: ColumnsType<IVehicleEntity> = [
   },
   {
     title: "Трансмиссия",
-    dataIndex: "transmissionEntity",
+    dataIndex: "transmission",
     render: dictionaryCell,
   },
   {
     title: "Топливо",
-    dataIndex: "fuelEntity",
+    dataIndex: "fuel",
     render: dictionaryCell,
   },
   { title: "Стоимость", dataIndex: "price" },

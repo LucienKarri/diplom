@@ -25,19 +25,19 @@ public class VehicleEntity {
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    private BrandEntity brandEntity;
+    private BrandEntity brand;
 
     @ManyToOne
     @JoinColumn(name = "model_id")
-    private ModelEntity modelEntity;
+    private ModelEntity model;
 
     @ManyToOne
     @JoinColumn(name = "fuel_id")
-    private FuelEntity fuelEntity;
+    private FuelEntity fuel;
 
     @ManyToOne
     @JoinColumn(name = "transmission_id")
-    private TransmissionEntity transmissionEntity;
+    private TransmissionEntity transmission;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "attachment_id", nullable = true)
